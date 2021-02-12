@@ -1,25 +1,22 @@
-import logo from './logo.svg';
 import './App.css';
+import { useRandomPokemon } from './useRandomPokemon';
 
-function App() {
+export default function App() {
+  const { pokemon, loading, error } = useRandomPokemon();
+
+  if (error) {
+    return <h1>Something went wrong</h1>;
+  }
+
+  if (loading) {
+    return <h1>Loading...</h1>;
+  }
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h1>Random Pokemon</h1>
+      <h2 style={{ textTransform: 'capitalize' }}>{pokemon.name}</h2>
+      <img src={pokemon.sprites.front_default} alt={pokemon.name} />
     </div>
   );
 }
-
-export default App;
